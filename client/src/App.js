@@ -1,23 +1,30 @@
 import './App.css';
+import { Container, AppBar, Typography, Grid, Grow } from '@material-ui/core'
+import Posts from './conponents/Posts/Posts';
+import Form from './conponents/From/Form';
+import useStyle from './styles'
+
 
 function App() {
+  const classes = useStyle()
   return (
-    <div className="App">
-      <header className="App-header">
-       
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="lg">
+      <AppBar className={classes.appBar} position="static" color="inherit">
+        <Typography align="center" variant="h2">Memories</Typography>
+      </AppBar>
+      <Grow in>
+        <Container>
+          <Grid container spacing={3} alignItems="stretch" justifyContent="space-between">
+            <Grid item xs={12} sm={7}>
+             <Posts />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Form />
+            </Grid>
+          </Grid>
+        </Container>
+      </Grow>
+    </Container>
   );
 }
 
