@@ -27,12 +27,15 @@ mongoose.connect(process.env.CON, {
     useUnifiedTopology: true,
     useCreateIndex: true
 })
-.then(res => { console.log('Mongo is connected') })
+.then(
+    app.listen(port, () =>{
+    console.log(`Node is running on port ${port}`)
+}) )
 .catch(err => {console.log("Mongo is not connected")})
 
-app.listen(port, () =>{
-    console.log(`Node is running on port ${port}`)
-})
+
+
+
 
 
 
