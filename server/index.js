@@ -29,7 +29,7 @@ mongoose.connect(process.env.CON, {
     
 })
 .then(
-    app.listen(port, () =>{
+    app.listen(port, () => {
     console.log(`Node is running on port ${port}`)
 }) )
 .catch(err => {console.log("Mongo is not connected")})
