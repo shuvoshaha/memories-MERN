@@ -25,7 +25,8 @@ app.use('/posts', postRoutes)
 mongoose.connect(process.env.CON, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    
 })
 .then(
     app.listen(port, () =>{
@@ -33,6 +34,7 @@ mongoose.connect(process.env.CON, {
 }) )
 .catch(err => {console.log("Mongo is not connected")})
 
+mongoose.set("useFindAndModify", false)
 
 
 
