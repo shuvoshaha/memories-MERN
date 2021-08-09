@@ -1,11 +1,18 @@
+import React, { useEffect } from 'react'
 import './App.css';
 import { Container, AppBar, Typography, Grid, Grow } from '@material-ui/core'
 import Posts from './conponents/Posts/Posts';
 import Form from './conponents/From/Form';
 import useStyle from './styles'
+import { useDispatch } from 'react-redux'
+import { getPost } from './actions/post'
 
 
 function App() {
+  useEffect(() => {
+     
+  }, [])
+
   const classes = useStyle()
   return (
     <Container maxWidth="lg">
