@@ -9,9 +9,12 @@ import { getPost } from './actions/post'
 
 
 function App() {
+ 
+  const dispatch = useDispatch()
+
   useEffect(() => {
-     
-  }, [])
+      dispatch(getPost())
+  }, [dispatch])
 
   const classes = useStyle()
   return (
