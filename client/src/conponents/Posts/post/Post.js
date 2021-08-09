@@ -4,6 +4,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import  DeleteIcon  from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import useStyle from './styles'
+import moment from 'moment'
 
 const Post = ({ posts }) => {
     const classes = useStyle()
@@ -12,7 +13,8 @@ const Post = ({ posts }) => {
         <Card className="card" classes={classes.card}>
             <CardMedia  image={posts.selectedFile} title={posts.title} className={classes.img} />
             <div className={classes.overlay}>
-                <Typography variant="h5"> {posts.title} </Typography>
+                <Typography variant="h6"> {posts.creator} </Typography>
+                <Typography variant="body2"> {moment(posts.createAt).fromNow()} </Typography>
             </div>
         </Card>
     )
