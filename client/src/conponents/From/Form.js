@@ -12,7 +12,7 @@ const Form = () => {
     const dispatch = useDispatch()
 
     const [post, setPost] = useState({
-        creator: '', title: '', message: '', selectedFile: '', tags: ''
+        title: '', message: '', creator: '', tags: '',  selectedFile: '', 
     })
 
     const classes = useStyle()
@@ -68,7 +68,7 @@ const Form = () => {
                 <Filebase 
                   type="file"
                   multiple={false}
-                  onDone={(base64) => setPost({ ...post, selectedFile: base64 })}
+                  onDone={({base64}) => setPost({ ...post, selectedFile: base64 })}
                 />
                 </div>
 

@@ -1,9 +1,9 @@
-import * as api from '../api'
+import { fetchPost, createPost } from '../api'
 
 export const getPost = () => async(dispatch) => {
 
     try{
-        const { data }  = await api.fetchPost()
+        const { data }  = await fetchPost()
         dispatch({ type: 'FETCH_ALL', payload: data })
     }
 
@@ -14,7 +14,7 @@ export const getPost = () => async(dispatch) => {
 
 export const makePost =(post) => async(dispatch) =>{
     try{
-        const { data } = await api.createPost(post)
+        const { data } = await createPost(post)
         dispatch({ type: 'CREATE_POST', payload: data })
     }
 

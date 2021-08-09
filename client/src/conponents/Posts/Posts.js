@@ -1,19 +1,27 @@
 import React from 'react'
 import Post from './post/Post'
 import { useSelector } from 'react-redux'
+import { Grid, CircularProgress } from '@material-ui/core'
+
 
 const Posts = () => {
 
-    const state = useSelector(state => state.posts)
-    console.log(state)
+    const posts = useSelector(state => state.posts)
 
     return (
-        <div className="posts">
-            <h2>Posts</h2>
-            <Post />
-            <Post />
-            <Post />
-        </div>
+
+        !posts.length ? <CircularProgress /> :
+            <Grid className="container" container alignItems="stretch" spacing={3}>
+                {
+                    posts.map((posts) => {
+                        <Grid key={posts._id} xs={12} sm={6} item>
+                            <Post post={posts} />
+                        </Grid>
+                    })
+                }
+            </Grid>
+
+
     )
 }
 

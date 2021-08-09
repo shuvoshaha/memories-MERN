@@ -15,29 +15,29 @@ const router = express.Router()
 // Middleware
 app.use(router)
 app.use(cors())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json({ limit: '30mb', extended: true }))
+app.use(express.urlencoded({ limit: '30mb',  extended: true }))
 
 app.use('/posts', postRoutes)
 
+const connection_url = 'mongodb+srv://sks007:sKs007...@freecluster.abbdz.mongodb.net/central?retryWrites=true&w=majority'
 
 // mongoDB connection
-mongoose.connect(process.env.CON, {
+mongoose.connect(connection_url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
+  
     
 })
-.then(
-    app.listen(port, () => {
-    console.log(`Node is running on port ${port}`)
-}) )
+.then(res => console.log("Mongo is  connected"))
 .catch(err => {console.log("Mongo is not connected")})
 
 // clear console error
 mongoose.set("useFindAndModify", false)
 
-
+app.listen(port, () => {
+    console.log(`Node is running on port ${port}`)
+}) 
 
 
 

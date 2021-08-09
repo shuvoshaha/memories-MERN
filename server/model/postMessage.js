@@ -5,6 +5,7 @@ const postSchema = mongoose.Schema({
     message: String,
     creator: String,
     tags: [String],
+    selectedFile:  String,
     createAt: {
         type: Date,
         default: new Date
@@ -13,7 +14,7 @@ const postSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    selectedFile:  String
+    
 })
 
 const postMessage = mongoose.model("postMessage", postSchema)
