@@ -11,3 +11,13 @@ export const getPost = () => async(dispatch) => {
         console.log(err.message)
     }
 }
+
+export const createPost =(post) => async(dispatch) =>{
+    try{
+        dispatch({ type: 'CREATE_POST', payload: post })
+    }
+
+    catch(err){
+        console.log(err.message)
+    }
+}
