@@ -1,5 +1,5 @@
 import axios from 'axios'
 
-const url = "http://localhost:8000/posts"
+const url = "https://jsonplaceholder.typicode.com/posts"
 
 export const fetchPost = axios.get(url) 
