@@ -16,6 +16,6 @@ const postSchema = mongoose.Schema({
     selectedFile:  String
 })
 
-const postMessage = mongoose.model("post-message", postSchema)
+const postMessage = mongoose.model("postMessage", postSchema)
 
 export default postMessage

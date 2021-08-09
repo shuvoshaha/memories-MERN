@@ -34,6 +34,7 @@ mongoose.connect(process.env.CON, {
 }) )
 .catch(err => {console.log("Mongo is not connected")})
 
+// clear console error
 mongoose.set("useFindAndModify", false)
 
 

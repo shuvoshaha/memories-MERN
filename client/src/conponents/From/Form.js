@@ -3,20 +3,31 @@ import useStyle from './styles'
 import { Typography, Paper, TextField, Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import Filebase from 'react-file-base64'
+import { makePost } from '../../actions/post'
 
 
 
 const Form = () => {
+
+    const dispatch = useDispatch()
+
     const [post, setPost] = useState({
         creator: '', title: '', message: '', selectedFile: '', tags: ''
     })
 
     const classes = useStyle()
 
-    const onSubmitHandler = (e) => [
+    const onSubmitHandler = (e) => {
         e.preventDefault()
+        dispatch(makePost(post))
+        console.log(post)
 
-    ]
+    }
+
+    const clear = (e) =>{
+        e.preventDefault();
+
+    }
     return (
         <Paper>
             <form autoComplete="off" noValidate onSubmit={onSubmitHandler}  >
@@ -25,8 +36,9 @@ const Form = () => {
                     variant="outlined"
                     label="Creator"
                     name="creator"
-                    fullWidth value={post.creator}
-                    onChange={(e) => setPost({...post, createtor: e.target.value})}
+                    fullWidth 
+                    value={post.creator}
+                    onChange={(e) => setPost({...post, creator: e.target.value})}
                 />
 
                  <TextField
@@ -59,6 +71,9 @@ const Form = () => {
                   onDone={(base64) => setPost({ ...post, selectedFile: base64 })}
                 />
                 </div>
+
+                <Button type="submit"  color="primary" variant="contained" fullWidth>Submit</Button>
+                <Button   color="secondary" onClick={clear} variant="contained" fullWidth>Clear</Button>
 
             </form>
         </Paper>

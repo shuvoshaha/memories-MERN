@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = "https://jsonplaceholder.typicode.com/posts"
+const url = "http://localhost:8000/posts"
 
-export const fetchPost = axios.get(url) 
-export const createPost =(post) => axios.post(url, post)
+export const fetchPost = () => axios.get(url) 
+export const createPost = (newPost) => axios.post(url, newPost)
