@@ -52,8 +52,8 @@ const Form = ({ currentId, setCurrentId }) => {
     }
     return (
         <Paper>
-            <form autoComplete="off" noValidate onSubmit={onSubmitHandler}  >
-                <Typography variant="h6" className={classes.header} >Create a Memory</Typography>
+            <form autoComplete="off" className={classes.form} noValidate onSubmit={onSubmitHandler}  >
+                <Typography variant="h6" className={classes.header} > {currentId ? 'Update': 'Create'}  a Memory</Typography>
                 <TextField
                     variant="outlined"
                     label="Creator"
@@ -97,7 +97,9 @@ const Form = ({ currentId, setCurrentId }) => {
                     />
                 </div>
 
-                <Button type="submit" color="primary" variant="contained" fullWidth>Submit</Button>
+                <Button type="submit" color="primary" style={{ marginBottom: '10px' }} variant="contained" fullWidth>
+                    { currentId ? 'Update': 'Submit' }
+                </Button>
                 <Button type="reset" color="secondary" onClick={clear} variant="contained" fullWidth>Clear</Button>
 
             </form>

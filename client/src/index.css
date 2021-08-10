@@ -18,3 +18,7 @@ code {
   height: 180px;
   background-position: unset !important;
 }
+
+.MuiFormControl-root{
+  margin-bottom: 10px !important;
+}
