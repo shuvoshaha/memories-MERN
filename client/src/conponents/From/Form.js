@@ -1,31 +1,59 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useStyle from './styles'
 import { Typography, Paper, TextField, Button } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Filebase from 'react-file-base64'
 import { makePost } from '../../actions/post'
+import { updatePosts } from '../../actions/post'
 
 
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
 
     const dispatch = useDispatch()
 
     const [post, setPost] = useState({
-        title: '', message: '', creator: '', tags: '',  selectedFile: '', 
+        title: '', message: '', creator: '', tags: '',  selectedFile: ''
     })
+ 
+    // call the state
+    const getUpdateDataFromState = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : '' )
+    console.log(currentId)
+
+    useEffect(() => {
+         if(getUpdateDataFromState){
+             setPost(getUpdateDataFromState)
+             console.log(getUpdateDataFromState)
+         }
+       
+    }, [getUpdateDataFromState])
 
     const classes = useStyle()
 
     const onSubmitHandler = (e) => {
         e.preventDefault()
-        dispatch(makePost(post))
-        console.log(post)
+
+        if(currentId){
+            dispatch(updatePosts(currentId, post))
+        }
+        else{
+            dispatch(makePost(post))
+        }
+
+       clear()
+       
 
     }
 
-    const clear = (e) =>{
-        e.preventDefault();
+    const clear = () =>{
+        
+        if(currentId){
+            setCurrentId(0)
+        }
+        setPost({
+            title: '', message: '', creator: '', tags: '',  selectedFile: ''
+        })
+        
 
     }
     return (
@@ -45,7 +73,8 @@ const Form = () => {
                     variant="outlined"
                     label="Title"
                     name="title"
-                    fullWidth value={post.title}
+                    fullWidth 
+                    value={post.title}
                     onChange={(e) => setPost({...post, title: e.target.value})}
                 />
 
@@ -53,7 +82,8 @@ const Form = () => {
                     variant="outlined"
                     label="Message"
                     name="message"
-                    fullWidth value={post.message}
+                    fullWidth 
+                    value={post.message}
                     onChange={(e) => setPost({...post, message: e.target.value})}
                 />
 
@@ -61,7 +91,8 @@ const Form = () => {
                     variant="outlined"
                     label="Tags"
                     name="tags"
-                    fullWidth value={post.tags}
+                    fullWidth 
+                    value={post.tags}
                     onChange={(e) => setPost({...post, tags: e.target.value})}
                 />
                 <div className={classes.file}>
@@ -73,7 +104,7 @@ const Form = () => {
                 </div>
 
                 <Button type="submit"  color="primary" variant="contained" fullWidth>Submit</Button>
-                <Button   color="secondary" onClick={clear} variant="contained" fullWidth>Clear</Button>
+                <Button  type="reset" color="secondary" onClick={clear} variant="contained" fullWidth>Clear</Button>
 
             </form>
         </Paper>

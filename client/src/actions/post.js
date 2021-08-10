@@ -1,4 +1,4 @@
-import { fetchPost, createPost } from '../api'
+import { fetchPost, createPost, updatePost } from '../api'
 
 export const getPost = () => async(dispatch) => {
 
@@ -23,11 +23,13 @@ export const makePost =(post) => async(dispatch) =>{
     }
 }
 
-// export const updatePost = (id, post) = async (dispatch) =>{
-//     try{
+export const updatePosts = (id, post) => async (dispatch) =>{
 
-//     }
-//     catch(err){
-//         console.log(err.message)
-//     }
-// }
+    const { data } = await updatePost(id, post)
+    try{
+        dispatch({ type: 'UPDATE_POST', payload: data })
+    }
+    catch(err){
+        console.log(err.message)
+    }
+}
