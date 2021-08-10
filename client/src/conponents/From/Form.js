@@ -15,7 +15,7 @@ const Form = ({ currentId, setCurrentId }) => {
     const [post, setPost] = useState({
         title: '', message: '', creator: '', tags: '', selectedFile: ''
     })
-    
+
     // call the state
     const getUpdateDataFromState = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : '')
     console.log(currentId)
@@ -30,6 +30,7 @@ const Form = ({ currentId, setCurrentId }) => {
     // create style instance
     const classes = useStyle()
 
+    // Form submit
     const onSubmitHandler = (e) => {
         e.preventDefault()
 
@@ -53,7 +54,7 @@ const Form = ({ currentId, setCurrentId }) => {
     return (
         <Paper>
             <form autoComplete="off" className={classes.form} noValidate onSubmit={onSubmitHandler}  >
-                <Typography variant="h6" className={classes.header} > {currentId ? 'Update': 'Create'}  a Memory</Typography>
+                <Typography variant="h6" className={classes.header} > {currentId ? 'Update' : 'Create'}  a Memory</Typography>
                 <TextField
                     variant="outlined"
                     label="Creator"
@@ -97,10 +98,20 @@ const Form = ({ currentId, setCurrentId }) => {
                     />
                 </div>
 
-                <Button type="submit" color="primary" style={{ marginBottom: '10px' }} variant="contained" fullWidth>
-                    { currentId ? 'Update': 'Submit' }
+                <Button
+                    type="submit"
+                    color="primary"
+                    style={{ marginBottom: '10px' }}
+                    variant="contained" fullWidth>
+                    {currentId ? 'Update' : 'Submit'}
                 </Button>
-                <Button type="reset" color="secondary" onClick={clear} variant="contained" fullWidth>Clear</Button>
+
+                <Button
+                    type="reset"
+                    color="secondary"
+                    onClick={clear}
+                    variant="contained"
+                    fullWidth>Clear</Button>
 
             </form>
         </Paper>
