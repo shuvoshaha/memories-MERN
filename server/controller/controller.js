@@ -1,5 +1,7 @@
 import postMessage from "../model/postMessage.js";
 import mongoose from 'mongoose';
+import express from 'express'
+const router = express.Router()
 
 // get post from db
 export const getPost = async (req, res) => {
@@ -73,17 +75,23 @@ export const deletePost = async (req, res) => {
 
 export const likePost = async (req, res) => {
     const { id } = req.params
-    try {
-        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("Id is not valid");
-
-        else {
-            const post = await postMessage.find(id)
-            const updateLike = await postMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true })
-            res.status.status(201).json(updateLike)
-        }
+    
+    try{
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+       
+        const post = await postMessage.findById(id);
+       
+        const updatedPost = await postMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+        
+        res.json(updatedPost);
     }
 
     catch (err) {
         res.status(404).json({ message: err.message })
     }
+        
+    
+
 }
+
+export default router;

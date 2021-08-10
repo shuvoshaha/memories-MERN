@@ -1,6 +1,6 @@
-export default  (posts = [], action) => {
+export default (posts = [], action) => {
 
-    switch(action.type){
+    switch (action.type) {
         case 'FETCH_ALL':
             return action.payload;
 
@@ -8,12 +8,15 @@ export default  (posts = [], action) => {
             return [...posts, action.payload];
 
         case 'UPDATE_POST':
-            return posts.map((post) => post._id === action.payload._id ? action.payload : post) ;
-        
+            return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
+
+        case 'LIKE_POST':
+            return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
+
         case 'DELETE_POST':
-            return posts.filter((post) => post._id !== action.payload )    
-            
-        default: 
-             return posts    
+            return posts.filter((post) => post._id !== action.payload)
+
+        default:
+            return posts
     }
 }

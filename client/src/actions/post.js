@@ -1,4 +1,4 @@
-import { fetchPost, createPost, updatePost, deletePost } from '../api'
+import { fetchPost, createPost, updatePost, deletePost, like } from '../api'
 
 // Get all data from db
 export const getPost = () => async (dispatch) => {
@@ -46,4 +46,16 @@ export const deletePosts = (id) => async (dispatch) => {
         console.log(err.message)
     }
 
+}
+
+// Like post
+export const likePost = (id) => async (dispatch) => {
+    const { data } = await like(id)
+
+    try {
+        dispatch({ type: 'LIKE_POST', payload: data })
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
