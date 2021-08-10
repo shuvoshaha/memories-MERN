@@ -88,7 +88,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     name="tags"
                     fullWidth
                     value={post.tags}
-                    onChange={(e) => setPost({ ...post, tags: e.target.value })}
+                    onChange={(e) => setPost({ ...post, tags: e.target.value.split(',') })}
                 />
                 <div className={classes.file}>
                     <Filebase
