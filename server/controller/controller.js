@@ -49,3 +49,19 @@ export const updatePost = async (req, res) => {
     }
     
 }
+
+// Delete Post from db
+
+export const deletePost = async(req, res) =>{
+    const { id } = req.params;
+    try{
+
+        await postMessage.findByIdAndRemove(id)
+        res.status(201).send("Delete Successfully");
+        
+    }
+
+    catch(err){
+        res.status(404).json({ message: err.message })
+    }
+}

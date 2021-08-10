@@ -13,48 +13,42 @@ const Form = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch()
 
     const [post, setPost] = useState({
-        title: '', message: '', creator: '', tags: '',  selectedFile: ''
+        title: '', message: '', creator: '', tags: '', selectedFile: ''
     })
- 
+    
     // call the state
-    const getUpdateDataFromState = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : '' )
+    const getUpdateDataFromState = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : '')
     console.log(currentId)
 
     useEffect(() => {
-         if(getUpdateDataFromState){
-             setPost(getUpdateDataFromState)
-             console.log(getUpdateDataFromState)
-         }
-       
+        if (getUpdateDataFromState) {
+            setPost(getUpdateDataFromState)
+            console.log(getUpdateDataFromState)
+        }
     }, [getUpdateDataFromState])
 
+    // create style instance
     const classes = useStyle()
 
     const onSubmitHandler = (e) => {
         e.preventDefault()
 
-        if(currentId){
+        if (currentId) {
             dispatch(updatePosts(currentId, post))
         }
-        else{
+        else {
             dispatch(makePost(post))
         }
-
-       clear()
-       
-
+        clear()
     }
 
-    const clear = () =>{
-        
-        if(currentId){
+    const clear = () => {
+        if (currentId) {
             setCurrentId(0)
         }
         setPost({
-            title: '', message: '', creator: '', tags: '',  selectedFile: ''
+            title: '', message: '', creator: '', tags: '', selectedFile: ''
         })
-        
-
     }
     return (
         <Paper>
@@ -64,47 +58,47 @@ const Form = ({ currentId, setCurrentId }) => {
                     variant="outlined"
                     label="Creator"
                     name="creator"
-                    fullWidth 
+                    fullWidth
                     value={post.creator}
-                    onChange={(e) => setPost({...post, creator: e.target.value})}
+                    onChange={(e) => setPost({ ...post, creator: e.target.value })}
                 />
 
-                 <TextField
+                <TextField
                     variant="outlined"
                     label="Title"
                     name="title"
-                    fullWidth 
+                    fullWidth
                     value={post.title}
-                    onChange={(e) => setPost({...post, title: e.target.value})}
+                    onChange={(e) => setPost({ ...post, title: e.target.value })}
                 />
 
-                 <TextField
+                <TextField
                     variant="outlined"
                     label="Message"
                     name="message"
-                    fullWidth 
+                    fullWidth
                     value={post.message}
-                    onChange={(e) => setPost({...post, message: e.target.value})}
+                    onChange={(e) => setPost({ ...post, message: e.target.value })}
                 />
 
-                 <TextField
+                <TextField
                     variant="outlined"
                     label="Tags"
                     name="tags"
-                    fullWidth 
+                    fullWidth
                     value={post.tags}
-                    onChange={(e) => setPost({...post, tags: e.target.value})}
+                    onChange={(e) => setPost({ ...post, tags: e.target.value })}
                 />
                 <div className={classes.file}>
-                <Filebase 
-                  type="file"
-                  multiple={false}
-                  onDone={({base64}) => setPost({ ...post, selectedFile: base64 })}
-                />
+                    <Filebase
+                        type="file"
+                        multiple={false}
+                        onDone={({ base64 }) => setPost({ ...post, selectedFile: base64 })}
+                    />
                 </div>
 
-                <Button type="submit"  color="primary" variant="contained" fullWidth>Submit</Button>
-                <Button  type="reset" color="secondary" onClick={clear} variant="contained" fullWidth>Clear</Button>
+                <Button type="submit" color="primary" variant="contained" fullWidth>Submit</Button>
+                <Button type="reset" color="secondary" onClick={clear} variant="contained" fullWidth>Clear</Button>
 
             </form>
         </Paper>
