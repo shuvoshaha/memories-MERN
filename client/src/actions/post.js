@@ -22,3 +22,12 @@ export const makePost =(post) => async(dispatch) =>{
         console.log(err.message)
     }
 }
+
+// export const updatePost = (id, post) = async (dispatch) =>{
+//     try{
+
+//     }
+//     catch(err){
+//         console.log(err.message)
+//     }
+// }
