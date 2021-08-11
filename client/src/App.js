@@ -24,9 +24,7 @@ function App() {
   const classes = useStyle()
   return (
     <Container maxWidth="lg">
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.header} align="center" variant="h2">Memories</Typography>
-      </AppBar>
+      
       <Grow in>
         <Container>
           <Grid container spacing={3} alignItems="stretch" justifyContent="space-between">
