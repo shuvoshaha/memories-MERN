@@ -1,42 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './App.css';
-import { Container, AppBar, Typography, Grid, Grow } from '@material-ui/core'
-import Posts from './conponents/Posts/Posts';
-import Form from './conponents/From/Form';
-import useStyle from './styles'
-import { useDispatch } from 'react-redux'
-import { getPost } from './actions/post'
+import { Container } from '@material-ui/core'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Navbar from './conponents/Navbar/Navbar';
+import Home from './conponents/Home/Home';
+import Auth from './conponents/Auth/Auth';
 
 
 function App() {
 
-  const [currentId, setCurrentId] = useState(null)
- 
-  const dispatch = useDispatch()
-
-  // get post
-  useEffect(() => {
-      dispatch(getPost())
-  }, [dispatch])
-
-  console.log(currentId)
-
-  const classes = useStyle()
   return (
     <Container maxWidth="lg">
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path="/auth" component={Auth} />
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </Router>
       
-      <Grow in>
-        <Container>
-          <Grid container spacing={3} alignItems="stretch" justifyContent="space-between">
-            <Grid item xs={12} sm={7}>
-             <Posts currentId={currentId} setCurrentId={setCurrentId} />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Form currentId={currentId} setCurrentId={setCurrentId} />
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
     </Container>
   );
 }
