@@ -4,52 +4,53 @@ import LockOutLinedIcon from '@material-ui/icons/LockOutlined';
 import Input from './Input';
 import { GoogleLogin } from 'react-google-login'
 import { useDispatch } from 'react-redux'
+import useStyle from './styles'
 
 
 const Auth = () => {
+        const classes = useStyle()
+        const [showPassword, setShowPassword] = useState(false)
 
-    const [showPassword, setShowPassword] = useState(false)
+        const dispatch = useDispatch();
 
-    const dispatch =  useDispatch();
+        const handleChange = (e) => {
 
-    const handleChange = (e) => {
+        }
 
-    }
+        const handleSubmit = (e) => {
+            e.preventDefatul();
+        }
 
-    const handleSubmit = (e) => {
-        e.preventDefatul();
-    }
+        const handleShowPassword = () => {
+            setShowPassword((setShowPassword) => !setShowPassword)
+        }
 
-    const handleShowPassword = () => {
-        setShowPassword((setShowPassword) => !setShowPassword)
-    }
+        const [isSignup, setIsSignup] = useState(false)
+        const switchMood = () => {
+            setIsSignup((prevSignup) => !prevSignup)
+        }
 
-    const [isSignup, setIsSignup] = useState(false)
-    const switchMood = () => {
-        setIsSignup((prevSignup) => !prevSignup)
-    }
+        const onSuccessGoogleLogin = async(res) => {
+            //if res is exists then give object and use res? something like this
+            const result = res ?.profileObj;
+            const token = res ?.tokenId
+                // console.log(res)
+            dispatch({ type: 'AUTH', data: { result, token } })
+        }
 
-    const onSuccessGoogleLogin = async (res) =>{
-        //if res is exists then give object and use res? something like this
-        const result = res?.profileObj;
-        const token = res?.tokenId
-        // console.log(res)
-        dispatch({ type: 'AUTH', data: { result, token } })
-    }
+        const onFailureGoogleLogin = (err) => {
+            console.log("Something went wrong with google authentication")
+        }
 
-    const onFailureGoogleLogin = (err) =>{
-        console.log("Something went wrong with google authentication")
-    }
-
-
-    return (
-        <Container component="main" maxWidth="xs">
-            <Paper elevation={3}>
+        return ( 
+      
+            <Container component="main" maxWidth="xs">
+            <Paper className={classes.card} elevation={3}>
                 <Avatar color="seconday">
                     <LockOutLinedIcon />
                 </Avatar>
-                <Typography variant="h5">{isSignup ? 'Sign Up' : 'Sign in'} </Typography>
-                <form onSubmit={handleSubmit}>
+                <Typography className={classes.header} variant="h5">{isSignup ? 'Sign Up' : 'Sign in'} </Typography>
+                <form className={classes.form} onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         {
                             isSignup && (
@@ -89,7 +90,7 @@ const Auth = () => {
                 </Grid>
             </Paper>
         </Container>
-    )
-}
+            )
+                }
 
-export default Auth
+                export default Auth

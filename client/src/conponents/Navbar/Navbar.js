@@ -1,10 +1,12 @@
+import React, { useState, useEffect } from 'react'
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core'
-import React from 'react'
 import useStyle from './styles'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     const classes = useStyle()
+    const [use, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    console.log(use)
     const user = null
 
     return (
