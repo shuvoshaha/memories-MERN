@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core'
 import useStyle from './styles'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
 
 const Navbar = () => {
     const classes = useStyle()
-    const [use, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
-    console.log(use)
-    const user = null
+    const [user, setUser] = useState(null)
+    const dispatch = useDispatch()
+
+    const history = useHistory()
+
+    const logout = () =>{
+        setUser(null);
+        history.push('/')
+        dispatch({ type: 'LOGOUT' })
+    }
+    useEffect(() => {
+       const token = user?.token;
+       
+       setUser(JSON.parse(localStorage.getItem('profile')))
+    }, [])
+
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
@@ -18,9 +32,9 @@ const Navbar = () => {
                 {
                     user ? (
                         <div className={classes.profile}>
-                            <Avatar className={classes.purple} alt={user.result.name} src={user.result.name.chatAt(0)}></Avatar>
+                            <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl ? user.result.imageUrl : user.result.name.charAt(0)}></Avatar>
                             <Typography className={classes.username} variant="h6">{user.result.name}</Typography>
-                            <Button classes={classes.logout} variant="contained" color="secondary">Logout</Button>
+                            <Button classes={classes.logout} variant="contained" onClick={logout} color="secondary">Logout</Button>
                         </div>
                     ) :
                     (
