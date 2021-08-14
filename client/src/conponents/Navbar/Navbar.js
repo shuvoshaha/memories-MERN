@@ -17,6 +17,7 @@ const Navbar = () => {
         history.push('/')
         dispatch({ type: 'LOGOUT' })
     }
+    
     useEffect(() => {
        const token = user?.token;
        

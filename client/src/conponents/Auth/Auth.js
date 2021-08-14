@@ -16,9 +16,14 @@ const Auth = () => {
 
         const dispatch = useDispatch();
 
-        const handleChange = (e) => {
+        const initialState = { fname: '', lname: '', email: '', password: '', cpassword: ''  }
+        const [formData, setFormData] = useState(initialState)
 
+        const handleChange = (e) => {
+            setFormData({...formData, [e.target.name]: e.target.value})
         }
+        
+        console.log(formData)
 
         const handleSubmit = (e) => {
             e.preventDefatul();
@@ -60,13 +65,14 @@ const Auth = () => {
                             isSignup && (
                                 <>
                                     <Input type="text" label="First Name" handleChange={handleChange} name="fname" half={6} />
-                                    <Input type="text" label="Last Name" handleChange={handleChange} name="lname" half={6} />
+                                    <Input type="text" label="Last " handleChange={handleChange} name="lname" half={6} />
 
                                 </>
                             )
                         }
                         <Input label="Email..." handleChange={handleChange} name="email" type="email" xs={12} />
                         <Input label="Password" handleChange={handleChange} name="password" handleShowPassword={handleShowPassword} type={showPassword ? 'text' : 'password'} autoFocus="autoFocus" xs={12} />
+                        {isSignup && <Input type="password" name="cpassword" handleChange={handleChange} label="Confirm Password" xs={12} />}
                        
                         {/* Google auth */}
                         <GoogleLogin
@@ -78,7 +84,7 @@ const Auth = () => {
                         cookiePolicy="single_host_origin"
                         />
 
-                        {isSignup && <Input type="password" name="cnpsd" handleChange={handleChange} label="Confirm Password" xs={12} />}
+                        
 
                         <Button variant="contained" align="center" color="primary">
                             {isSignup ? 'Sign up' : 'Sign in'}
