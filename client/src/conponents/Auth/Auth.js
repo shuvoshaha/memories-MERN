@@ -5,6 +5,7 @@ import Input from './Input';
 import { GoogleLogin } from 'react-google-login'
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
+import { signIn, signUp } from '../../actions/auth'
 import useStyle from './styles'
 
 
@@ -19,14 +20,23 @@ const Auth = () => {
         const initialState = { fname: '', lname: '', email: '', password: '', cpassword: ''  }
         const [formData, setFormData] = useState(initialState)
 
+        // Set form data into state
         const handleChange = (e) => {
             setFormData({...formData, [e.target.name]: e.target.value})
         }
         
         console.log(formData)
 
+        // Submit data into db using redux
         const handleSubmit = (e) => {
             e.preventDefatul();
+
+            if(isSignup){
+                dispatch(signUp(formData, history))
+            }
+            else{
+                dispatch(signIn(formData, history))
+            }
         }
 
         const handleShowPassword = () => {

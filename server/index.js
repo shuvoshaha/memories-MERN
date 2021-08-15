@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import  dotenv from 'dotenv'
 import postRoutes from './routes/route.js'
+import userRoute from './routes/user.js'
 dotenv.config()
 
 const port = process.env.PORT || 5000;
@@ -19,6 +20,7 @@ app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb',  extended: true }))
 
 app.use('/posts', postRoutes)
+app.use('/user', userRoute)
 
 const connection_url = 'mongodb+srv://sks007:sKs007...@freecluster.abbdz.mongodb.net/central?retryWrites=true&w=majority'
 
