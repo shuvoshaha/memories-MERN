@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Paper, TextField, Typography, Grid, Avatar, Button } from '@material-ui/core';
+import React, {  useState } from 'react';
+import { Container, Paper, Typography, Grid, Avatar, Button } from '@material-ui/core';
 import LockOutLinedIcon from '@material-ui/icons/LockOutlined';
 import Input from './Input';
 import { GoogleLogin } from 'react-google-login'
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { signIn, signUp } from '../../actions/auth'
 import useStyle from './styles'
 
@@ -25,12 +25,14 @@ const Auth = () => {
             setFormData({...formData, [e.target.name]: e.target.value})
         }
         
-        console.log(formData)
+        const state = useSelector(state => state.auth)
 
         // Submit data into db using redux
         const handleSubmit = (e) => {
-            e.preventDefatul();
+            e.preventDefault();
 
+            console.log(state)
+            
             if(isSignup){
                 dispatch(signUp(formData, history))
             }
@@ -44,8 +46,9 @@ const Auth = () => {
         }
 
         const [isSignup, setIsSignup] = useState(false)
+
         const switchMood = () => {
-            setIsSignup((prevSignup) => !prevSignup)
+            setIsSignup(!isSignup)
         }
 
         const onSuccessGoogleLogin = async(res) => {
@@ -96,7 +99,7 @@ const Auth = () => {
 
                         
 
-                        <Button variant="contained" align="center" color="primary">
+                        <Button variant="contained" type="submit" align="center" color="primary">
                             {isSignup ? 'Sign up' : 'Sign in'}
                         </Button>
                     </Grid>

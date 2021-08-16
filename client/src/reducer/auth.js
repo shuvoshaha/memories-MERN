@@ -1,9 +1,10 @@
-export default  (state = { authData: null }, action) =>{
+const auth = (state = { authData: null } , action) =>{
     switch (action.type) {
+        
         case "AUTH":
-            console.log(action?.data)
+            console.log(action.data)
             localStorage.setItem('profile', JSON.stringify({...action?.data}))
-            return { ...state, authData: action?.data }
+            return  { ...state, authData: action.data}
 
         case 'LOGOUT':
             localStorage.clear()    
@@ -14,3 +15,5 @@ export default  (state = { authData: null }, action) =>{
           
     }
 }
+
+export default auth

@@ -1,10 +1,10 @@
 import { signInForm, signUpForm} from '../api'
 
 export const signIn = (formData, history) => async(dispatch) =>{
-    const { data } = signInForm(formData)
+    const { data } = await signInForm(formData)
 
     try{
-        dispatch({ type: 'SIGNIn', authData: data })
+        dispatch({ type: 'AUTH',  data })
         history.push('/')
     }
 
@@ -14,14 +14,14 @@ export const signIn = (formData, history) => async(dispatch) =>{
 }
 
 export const signUp = (formData, history) => async(dispatch) =>{
-    const { data } = signUpForm(formData)
+    const { data } = await signUpForm(formData)
 
     try{
-        dispatch({ type: 'SIGNUP', authData: data })
+        dispatch({ type: 'AUTH',   data })
         history.push('/')
     }
 
     catch(e){
-        console.log(e.message)
+        console.log("front problem")
     }
 }
