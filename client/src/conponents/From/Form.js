@@ -10,10 +10,12 @@ import { updatePosts } from '../../actions/post'
 
 const Form = ({ currentId, setCurrentId }) => {
 
+    const user = localStorage.getItem("profile")
+
     const dispatch = useDispatch()
 
     const [post, setPost] = useState({
-        title: '', message: '', creator: '', tags: '', selectedFile: ''
+        title: '', message: '', tags: '', selectedFile: ''
     })
 
     // call the state
@@ -35,10 +37,10 @@ const Form = ({ currentId, setCurrentId }) => {
         e.preventDefault()
 
         if (currentId) {
-            dispatch(updatePosts(currentId, post))
+            dispatch(updatePosts(currentId, {...post, name: user?.result?.name}))
         }
         else {
-            dispatch(makePost(post))
+            dispatch(makePost({...post, name: user?.result?.name}))
         }
         clear()
     }
@@ -48,8 +50,17 @@ const Form = ({ currentId, setCurrentId }) => {
             setCurrentId(0)
         }
         setPost({
-            title: '', message: '', creator: '', tags: '', selectedFile: ''
+            title: '', message: '', tags: '', selectedFile: ''
         })
+    }
+
+     // if user not login/register
+    if(!user?.result?.name){
+     return(
+        <Paper>
+        <Typography variant="h2">Please Sign in then you can get access</Typography>
+    </Paper>
+     )
     }
     return (
         <Paper>
