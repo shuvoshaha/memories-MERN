@@ -4,6 +4,14 @@ import axios from 'axios'
 
 const API = axios.create({ baseURL: 'http://localhost:8000' })
 
+// when login and get data from header backend
+API.interceptors.request.user((req) =>{
+    if(localStorage.getItem("profile")){
+        req.headers.Authorization = JSON.parse(localStorage.getItem("profile").token)
+    }
+     return req;
+})
+
 export const fetchPost = () => API.get('/posts') 
 export const createPost = (newPost) => API.post('/posts', newPost)
 export const updatePost =(id, updatePost) => API.patch(`/posts/${id}`, updatePost)
