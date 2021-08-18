@@ -18,6 +18,7 @@ export const signIn = async (req, res) =>{
 
         const token = jwt.sign({ email: existsUser.email, id: existsUser._id }, 'test123', { expiresIn: '1h'})
         res.status(200).json({ result: existsUser, token })
+        console.log(token)
     }
 
     catch(err){

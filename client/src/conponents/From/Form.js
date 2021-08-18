@@ -10,7 +10,7 @@ import { updatePosts } from '../../actions/post'
 
 const Form = ({ currentId, setCurrentId }) => {
 
-    const user = localStorage.getItem("profile")
+    const user = JSON.parse(localStorage.getItem("profile"))
 
     const dispatch = useDispatch()
 
@@ -37,10 +37,10 @@ const Form = ({ currentId, setCurrentId }) => {
         e.preventDefault()
 
         if (currentId) {
-            dispatch(updatePosts(currentId, {...post, name: user?.result?.name}))
+            dispatch(updatePosts(currentId, { ...post, name: user?.result?.name }))
         }
         else {
-            dispatch(makePost({...post, name: user?.result?.name}))
+            dispatch(makePost({ ...post, name: user?.result?.name }))
         }
         clear()
     }
@@ -49,31 +49,29 @@ const Form = ({ currentId, setCurrentId }) => {
         if (currentId) {
             setCurrentId(0)
         }
-        setPost({
-            title: '', message: '', tags: '', selectedFile: ''
-        })
+        setPost({ title: '', message: '', tags: '', selectedFile: '' })
     }
 
-     // if user not login/register
-    if(!user?.result?.name){
-     return(
-        <Paper>
-        <Typography variant="h2">Please Sign in then you can get access</Typography>
-    </Paper>
-     )
+    // if user not login/register
+    if (!user?.result?.name) {
+        return (
+          
+                <Typography variant="h6">Please Sign in then you can get access</Typography>
+           
+        );
     }
     return (
         <Paper>
             <form autoComplete="off" className={classes.form} noValidate onSubmit={onSubmitHandler}  >
                 <Typography variant="h6" className={classes.header} > {currentId ? 'Update' : 'Create'}  a Memory</Typography>
-                <TextField
+                {/* <TextField
                     variant="outlined"
                     label="Creator"
                     name="creator"
                     fullWidth
                     value={post.creator}
                     onChange={(e) => setPost({ ...post, creator: e.target.value })}
-                />
+                /> */}
 
                 <TextField
                     variant="outlined"

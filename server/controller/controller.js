@@ -77,24 +77,28 @@ export const likePost = async (req, res) => {
     const { id } = req.params
     
     try{
-        if(!req.userId) return res.status(404).send("Unatuthenticate");
+        
+        console.log("userID: " + req.userId)
+        if(!req.userId) return res.json({ message: 'Unatuthenticate' });
 
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
        
         const post = await postMessage.findById(id);
-        const index = post.likes.findIndex((id) => id === String(req.userId))
+        
+        const index =  post.likes.findIndex((id) => id === String(req.userId))
 
-        if(index = -1){
+        if(index === -1){
             // like
-            post.likes.push(req.userId)
+             post.likes.push(req.userId)
         }
         else{
-            post.likes = post.likes.filter((id) => id !== String( req.userId))
+            post.likes =  post.likes.filter((id) => id !== String(req.userId))
         }
        
         const updatedPost = await postMessage.findByIdAndUpdate(id, post , { new: true });
         
         res.json(updatedPost);
+        console.log(updatePost)
     }
 
     catch (err) {
@@ -104,3 +108,4 @@ export const likePost = async (req, res) => {
 }
 
 export default router;
+

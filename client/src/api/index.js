@@ -7,7 +7,7 @@ const API = axios.create({ baseURL: 'http://localhost:8000' })
 // when login and get data from header backend
 API.interceptors.request.use((req) =>{
     if(localStorage.getItem("profile")){
-        req.headers.Authorization = JSON.parse(localStorage.getItem("profile").token)
+        req.headers.Authorization = `${JSON.parse(localStorage.getItem("profile")).token}`
     }
      return req;
 })
