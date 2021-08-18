@@ -18,7 +18,7 @@ export const getPost = async (req, res) => {
 // create post into db
 export const createPost = async (req, res) => {
     const formData = req.body;
-    const newData = new postMessage({ ...formData, creator: req.userId, createAt: new Date().toISOString() })
+    const newData = new postMessage({ ...formData, creator: req.userId })
 
     try {
         await newData.save()
@@ -78,7 +78,7 @@ export const likePost = async (req, res) => {
     
     try{
         
-        console.log("userID: " + req.userId)
+        // console.log("userID: " + req.userId)
         if(!req.userId) return res.json({ message: 'Unatuthenticate' });
 
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);

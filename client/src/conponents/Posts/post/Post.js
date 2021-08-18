@@ -16,26 +16,25 @@ const Post = ({ post, setCurrentId }) => {
     const user = JSON.parse(localStorage.getItem("profile"))
 
     const Like = () => {
-    
-        if ( post.likes.length > 0) {
-            return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id)) 
-            ?(
-                   <> <ThumbUpAltIcon fontSize="small" color="primary" />
-                        { post.likes.length > 2 ? `You and ${post.likes.length - 1} Others`
-                            : `${post.likes.length}  Like${post.likes.length > 1 ? 's' : ''}`}
-                    </>)
 
-                : (<> <ThumbUpAltOutlined color="primary" fontSize="small" />
-                    {post.likes.length}
-                    {post.likes.length === 1 ? 'Like' : 'Likes'}
-                </>)
+        if (post.likes.length > 0) {
+            return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
+                ? (
+                    <> <ThumbUpAltIcon fontSize="small" color="primary" />
+                        { post.likes.length > 2 ? `You and ${post.likes.length - 1} Others`
+                        : `${post.likes.length}  Like${post.likes.length > 1 ? 's' : ''}` }
+                    </>
+                ): (
+                    <> <ThumbUpAltOutlined color="primary" fontSize="small" />
+                        {post.likes.length}
+                        {post.likes.length === 1 ? 'Like' : 'Likes'}
+                    </>
+                   )
         }
 
         return <><ThumbUpAltOutlined fontSize="small" />Like </>
 
     }
-
-
 
     return (
         <Card className="card" classes={classes.card}>
@@ -57,11 +56,9 @@ const Post = ({ post, setCurrentId }) => {
             </CardContent>
             <CardActions className={classes.actions}>
                 <Button color="primary" size="small" disabled={!user?.result} onClick={() => { dispatch(likePost(post._id)) }}>
-
                     <Like />
-                  
-
                 </Button>
+                
                 <Button color="inherit" size="small" onClick={() => { dispatch(deletePosts(post._id)) }}>
                     <DeleteIcon fontSize="small" />
                     Delete
